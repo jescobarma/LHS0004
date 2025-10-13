@@ -41,7 +41,6 @@
 # Last updated: 2025-10-06
 ################################################################################
 
-
 # Clear the workspace
 rm(list = ls(all = TRUE))
 
@@ -222,31 +221,17 @@ LHS000401 <- kr_2015 %>%
       ))) > 2 ~ NA_real_,
       TRUE ~ anc_visits_c4 + tetanus_2_plus + anc_1st_trimester +
         M42C + M42D + M42E + skilled_prenatal
-    )
+    ), 
+    anc_quality_score_c2 = ifelse(anc_quality_score >=8 , 1, ifelse(is.na(anc_quality_score), NA_real_, 0))
   ) %>% 
   # Keep only the requested variables
   select(region, strata, psu, weight, urban, child_sex, neonatal, infant,
          birth_order_spacing_c5, birth_weight, preterm_birth,
          mage_birth_c3, meduc_c3, ethnicity_c3, any_substance_use,
-         wealth_index_c3, anc_quality_score)
+         wealth_index_c3, anc_quality_score_c2)
 
 
 # Save the derived dataset
 save(LHS000401, file = "../../data/derived/LHS000401.rda")
 
-
-
-
-
-library(survey)
-
-design <- svydesign(data = LHS000401, strata = ~strata, weights = ~weight, id = ~psu,
-                    nest = T)
-
-a <- svytable(~child_sex+neonatal, design); a
-
-prop.table(a)
-
-
-a
 
