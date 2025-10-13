@@ -112,6 +112,8 @@ LHS000401 <- kr_2015 %>%
     # Birth weight (in grams)
     # -------------------------------
     birth_weight = if_else(M19 %in% c(9996, 9998), NA_real_, M19),
+    underwt_birth = ifelse(is.na(birth_weight),NA_real_,
+                           ifelse(birth_weight < 2500, 1, 0)),
     
     # -------------------------------
     # Preterm birth (0 = "No", 1 = "Yes")
@@ -226,7 +228,7 @@ LHS000401 <- kr_2015 %>%
   ) %>% 
   # Keep only the requested variables
   select(region, strata, psu, weight, urban, child_sex, neonatal, infant,
-         birth_order_spacing_c5, birth_weight, preterm_birth,
+         birth_order_spacing_c5, underwt_birth, preterm_birth,
          mage_birth_c3, meduc_c3, ethnicity_c3, any_substance_use,
          wealth_index_c3, anc_quality_score_c2)
 
