@@ -2,22 +2,22 @@
 # Program name: LHS000401.R
 #
 # Description: 
-# This R script processes the 2015 Colombia DHS Children’s Recode (KR file)
-# and generates a derived dataset used for the analysis of child health outcomes.
-# The script reproduces the same data management procedures as the DHS program’s 
-# SAS routine (LHS000101.sas), adapting them to R using the haven and dplyr packages.
+#   This R script processes the 2015 Colombia DHS Children’s Recode (KR file)
+#   and generates a derived dataset used for the analysis of child health outcomes.
+#   The script reproduces the same data management procedures as the DHS program’s 
+#   SAS routine (LHS000101.sas), adapting them to R using the haven and dplyr packages.
 #
-# Version: R 4.3.3 ("Angel Food Cake")
+# Version: R 4.3.3 
 #
 # Authors: Alvaro Quijano Angarita & Javier Escobar Martinez
-# Institution: UNC-Chapel Hill
+# 
+# Affiliation: UNC-Chapel Hill
 #
 # Input:
 #   - Raw DHS data file: COKR72FL.SAS7BDAT (Children’s Recode 2015)
 #
 # Output:
 #   - Derived dataset: LHS000401.rda
-#   - Variables constructed for analysis (17 total)
 #
 # Main steps:
 #   1. Load and clean the DHS child-level data.
@@ -38,7 +38,7 @@
 #   - dplyr (for data manipulation)
 #
 # Date created: 2025-10-06
-# Last updated: 2025-10-06
+# Last updated: 2025-10-16
 ################################################################################
 
 # Clear the workspace
@@ -48,11 +48,6 @@ rm(list = ls(all = TRUE))
 library(haven)   # to read DHS data (SAS, Stata, SPSS formats)
 library(dplyr)   # for data manipulation
 
-# ******************************************************************************
-#                             COLOMBIA (2015)
-# ******************************************************************************
-
-# ******************************************************************************
 # Load the DHS Children’s Recode (KR) dataset Colombia (2015)
 kr_2015 <- read_sas("../../data/raw/COKR72FL.SAS7BDAT")
 
@@ -97,6 +92,11 @@ LHS000401 <- kr_2015 %>%
     neonatal = if_else(B5 == 0 & B7 < 1, 1, 0),  # death <1 month
     infant = if_else(B5 == 0 & B7 < 12, 1, 0),   # death <12 months
     
+    # -------------------------------
+    # Child year of birth
+    # -------------------------------
+    yob = trunc(1900 + (B3 - 1) / 12),
+
     # -------------------------------
     # Birth order and spacing (5 categories)
     # -------------------------------
@@ -227,11 +227,10 @@ LHS000401 <- kr_2015 %>%
     anc_quality_score_c2 = ifelse(anc_quality_score >=8 , 1, ifelse(is.na(anc_quality_score), NA_real_, 0))
   ) %>% 
   # Keep only the requested variables
-  select(region, strata, psu, weight, urban, child_sex, neonatal, infant,
+  select(region, strata, psu, weight, urban, child_sex, yob, neonatal, infant,
          birth_order_spacing_c5, underwt_birth, preterm_birth,
          mage_birth_c3, meduc_c3, ethnicity_c3, any_substance_use,
          wealth_index_c3, anc_quality_score_c2)
-
 
 # Save the derived dataset
 save(LHS000401, file = "../../data/derived/LHS000401.rda")
