@@ -75,16 +75,10 @@ LHS000401 <- kr_2015 %>%
     urban = if_else(V025 == 1, 1, 0),
     
     # -------------------------------
-    # Region
+    # Region : 1 = "Atlantica", 2 = "Oriental", 3 = "Central", 4 = "Pacifica",
+    # 5 = "Bogota", 6 = "Orinoquia/Amazonia"
     # -------------------------------
-    region = case_when(
-      V101 == 1 ~ "Atlantica",
-      V101 == 2 ~ "Oriental",
-      V101 == 3 ~ "Central",
-      V101 == 4 ~ "Pacifica",
-      V101 == 5 ~ "Bogota",
-      V101 == 6 ~ "Orinoquia/Amazonia"
-    ),
+    region = V101,
     
     # -------------------------------
     # Child sex (1=female, 0=male)
@@ -112,6 +106,7 @@ LHS000401 <- kr_2015 %>%
     # Birth weight (in grams)
     # -------------------------------
     birth_weight = if_else(M19 %in% c(9996, 9998), NA_real_, M19),
+    # (1 = "Yes", 0 ="No")
     underwt_birth = ifelse(is.na(birth_weight),NA_real_,
                            ifelse(birth_weight < 2500, 1, 0)),
     
@@ -134,8 +129,8 @@ LHS000401 <- kr_2015 %>%
     ),
     
     # -------------------------------
-    # Mother's education (3 categories) 0 = "No education", 1 = "Primary", 
-    # 2 = "Secondary", 3 = "Higher"
+    # Mother's education (3 categories) 1 = "No education", 2 = "Primary", 
+    # 3 = "Secondary", 3 = "Higher"
     # -------------------------------
     meduc_c3 = case_when(
       V106 == 0 ~ 1,
@@ -147,9 +142,9 @@ LHS000401 <- kr_2015 %>%
     # Ethnicity (3 categories)
     # -------------------------------
     ethnicity_c3 = case_when(
-      V131 == 1 ~ 1,                  # Indigenous
-      V131 %in% c(3, 4, 5) ~ 2,       # Afro-descendant
-      V131 %in% c(2, 6) ~ 3          # Other
+      V131 == 1 ~ 1,                  # 1 = Indigenous
+      V131 %in% c(3, 4, 5) ~ 2,       # 2 = Afro-descendant
+      V131 %in% c(2, 6) ~ 3          # 3 = Other
     ),
     
     # -------------------------------
@@ -172,12 +167,12 @@ LHS000401 <- kr_2015 %>%
     ),
     
     # -------------------------------
-    # Wealth index (3 categories)
+    # Wealth index (3 categories) 
     # -------------------------------
     wealth_index_c3 = case_when(
-      V190 %in% c(1, 2) ~ 1,
-      V190 == 3 ~ 2,
-      V190 %in% c(4, 5) ~ 3
+      V190 %in% c(1, 2) ~ 1,       # 1 = "Poorest" and "Poorer"
+      V190 == 3 ~ 2,               # 2 = "Middle"
+      V190 %in% c(4, 5) ~ 3        # 3 = "Richer" and "Richest"
     ),
     # -------------------------------
     # Number of antenatal visits (4-categories) | Number of ANC visits
@@ -233,7 +228,15 @@ LHS000401 <- kr_2015 %>%
          wealth_index_c3, anc_quality_score_c2)
 
 
+
+# Load format definitions
+source("formats_LHS000401.R")
+
+# Apply formats (like SAS FORMAT statements)
+LHS000401 <- apply_formats(LHS000401, formats_LHS000401)
+
+# Check labeled dataset
+str(LHS000401)
+
 # Save the derived dataset
 save(LHS000401, file = "../../data/derived/LHS000401.rda")
-
-
