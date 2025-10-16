@@ -1,0 +1,20 @@
+standard;
+variables
+  name=region type=num width=8;
+  name=strata;
+  name=psu;
+  name=weight;
+  name=urban;
+  name=child_sex;
+  name=yob;
+  name=neonatal;
+  name=infant;
+  name=birth_order_spacing_c5;
+  name=underwt_birth;
+  name=preterm_birth;
+  name=mage_birth_c3;
+  name=meduc_c3;
+  name=ethnicity_c3;
+  name=any_substance_use;
+  name=wealth_index_c3;
+  name=anc_quality_score_c2;

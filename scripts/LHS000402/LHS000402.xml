@@ -1,0 +1,15 @@
+ <R name="LHS000402">
+
+<bbdesign name="bbdesign">
+  title Bayesian Bootstrap Finite Population;
+  datain ../../data/derived/LHS000401;
+  dataout ../../data/derived/LHS000402;
+  stratum strata;
+  cluster psu;
+  weight weight;
+  csamples 10;    
+  wsamples 5;   
+  seed 102025; 
+</bbdesign>
+
+</R>
