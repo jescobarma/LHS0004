@@ -1,4 +1,4 @@
-SRCware BBDesign, Fri Oct 17 15:14:02 2025                                       1
+SRCware BBDesign, Fri Oct 17 19:04:58 2025                                       1
 
 Bayesian Bootstrap Finite Population
 
@@ -13,16 +13,3 @@ title Bayesian Bootstrap Finite Population;
   csamples 50;
   wsamples 5;
   seed 102025;
-SRCware BBDesign, Fri Oct 17 15:15:10 2025                                       1
-
-Bayesian Bootstrap Finite Population
-
-Results:
-
-Variables               18
-Observations         11695
-Strata                  63
-Clusters              3919
-Cluster samples         50
-Weight samples           5
-Syn pop size        116950

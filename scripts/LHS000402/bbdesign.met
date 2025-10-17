@@ -8,7 +8,6 @@ variables
   name=child_sex;
   name=yob;
   name=neonatal;
-  name=infant;
   name=bord_spacing_c5;
   name=underwt_birth;
   name=preterm_birth;
