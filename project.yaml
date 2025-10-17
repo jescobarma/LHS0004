@@ -1,25 +1,28 @@
 project:
-	id: LHS0004
-	title: Neonatal Mortality Colombian DHS 2015
-	description:  Determinants of neonatal mortality using the DHS2015 data and Finite Population Bayesian Bootstrap
-	lead: Álvaro Quijano
-	collaborators:
-		- Javier Escobar
-	status: ongoing
+  id: LHS0004
+  title: "Neonatal Mortality in the Colombian DHS 2015"
+  description: "Determinants of neonatal mortality using DHS 2015 data and the Finite Population Bayesian Bootstrap."
+  lead: "Álvaro Quijano"
+  collaborators:
+    - "Javier Escobar"
+  status: "ongoing"
 
 scripts:
-	- code: LHS000401
-	  task: Analytic file derivation
-	  software: R
-	  created: 
-	  status: ongoing
-	- code: LHS000402
-	  task: Bayesian Finite Populatin Bootstrap - Synthetic population
-	  software: IVEware
-	  created: 2025-10-16 
-  	  status: completed
-  	- code:	LHS000403
-	  task: Multiple Imputation using MICE packages
-	  software: R
-  	  created: 2025-10-16
- 	  status:  
+  - code: "LHS000401"
+    task: "Analytic file derivation"
+    software: "R"
+    created: "2025-10-15"
+    status: "ongoing"
+
+  - code: "LHS000402"
+    task: "Bayesian Finite Population Bootstrap – Synthetic population generation"
+    software: "IVEware"
+    created: "2025-10-16"
+    status: "completed"
+
+  - code: "LHS000403"
+    task: "Multiple Imputation using the MICE package"
+    software: "R"
+    created: "2025-10-17"
+    status: "ongoing"
+
