@@ -79,7 +79,7 @@ fmt_ethnicity_c3 <- function(x, ref = "Other") {
 }
 
 # Wealth index (3 categories)
-fmt_wealth_index_c3 <- function(x, ref = "Middle") {
+fmt_wealth_index_c3 <- function(x, ref = "Rich") {
   f <- factor(x,
               levels = 1:3,
               labels = c("Poor", "Middle", "Rich"))

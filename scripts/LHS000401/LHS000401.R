@@ -82,7 +82,6 @@ LHS000401 <- kr_2015 %>%
     # Neonatal and infant deaths (1 = yes, 0 = no)
     # -------------------------------
     neonatal = if_else(B5 == 0 & B7 < 1, 1, 0),  # death <1 month
-    infant = if_else(B5 == 0 & B7 < 12, 1, 0),   # death <12 months
     
     # -------------------------------
     # Child year of birth
@@ -222,7 +221,7 @@ LHS000401 <- kr_2015 %>%
     region = V101
   ) %>%
   # Keep only the requested variables
-  select(region, strata, psu, weight, urban, child_sex, yob, neonatal, infant,
+  select(region, strata, psu, weight, urban, child_sex, yob, neonatal,
          bord_spacing_c5, underwt_birth, preterm_birth,
          mage_birth_c3, meduc_c3, ethnicity_c3, any_substance_use,
          wealth_index_c3, anc_quality_score_c2) %>% 
