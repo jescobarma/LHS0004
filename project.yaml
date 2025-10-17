@@ -26,3 +26,8 @@ scripts:
     created: "2025-10-17"
     status: "ongoing"
 
+  - code: 'LHS000404'
+    task: 'Logistic regression of neonatal mortality across bootstrap × Polya × imputation datasets'
+    software: 'R'
+    created: '2025-10-17'
+    status: 'ongoing'

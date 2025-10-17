@@ -1,4 +1,4 @@
-##########################################################
+#============================================================================
 #
 #   Program: LHS000403.R
 #
@@ -14,7 +14,7 @@
 # 
 #   Output: data/derived/LHS000403.rda (Imputed datasets)
 #
-###########################################################
+#============================================================================
 
 # Retrieve command-line arguments
 args <- commandArgs(trailingOnly = TRUE)
@@ -25,46 +25,43 @@ suppressPackageStartupMessages({
   library(dplyr)
 })
 
-# load data from step #2
+# load data from step #2 and source formats
 load("data/derived/LHS000402.rda")
+source("scripts/LHS000490/LHS000490.R")
 
-# type conversions
-ds <- ds %>%
-  mutate(
-    birth_order_spacing_c5 = ordered(birth_order_spacing_c5),
-    underwt_birth = factor(underwt_birth, levels = c(0,1), labels = c("No","Yes")),
-    any_substance_use = factor(any_substance_use, levels = c(0,1), labels = c("No","Yes")),
-    anc_quality_score_c2 = factor(anc_quality_score_c2, levels = c(0,1), labels = c("Low","High"))
-  )
+# --- Subset only the relevant IMPL_ for this job ---
+ds <- ds %>% filter(IMPL_ == task_id)
 
-# Establish an imputation method for each variable 
+# Apply formats to the dataset
+ds <- apply_formats(ds, formats_LHS0004)
+
+# --- Define imputation methods ---
 init_method <- make.method(ds)
-init_method["birth_order_spacing_c5"] <- "polr"
+init_method["bord_spacing_c5"] <- "polyreg"
 init_method[c("underwt_birth","any_substance_use","anc_quality_score_c2")] <- "logreg"
 
-# Exclude irrelevant predictors from the model
+# --- Define predictor matrix and exclude design variables ---
 pred_matrix <- make.predictorMatrix(ds)
 pred_matrix[, c("OBS_","IMPL_","psu","weight","region","strata")] <- 0
 
-# Split data by IMPL_ (implicated dataset)
-split_data <- split(ds, ds$IMPL_)
-data_subset <- split_data[[task_id]]
-rm(ds, split_data); gc()
-
-# Print a message to indicate the start of the imputation.
+# --- Start imputation ---
 message("Imputing subset ", task_id)
 
-# Run multiple imputation in each subset
 imp <- mice(
-  data = data_subset,
-  m = 5,
+  data = ds,
+  m = 5,                    # number of imputations
   method = init_method,
   predictorMatrix = pred_matrix,
-  maxit = 10,
+  maxit = 5,                # iterations
   printFlag = FALSE,
   seed = 123
 )
 
-# Save files and print a message of completion
-save(imp, file = sprintf("data/derived/LHS000403_%d.rda", task_id), compress = "xz")
-message("Subset ", task_id, " imputation completed.")
+# --- Save output ---
+outfile <- sprintf("data/derived/LHS000403_%d.rda", task_id)
+save(imp, file = outfile, compress = "xz")
+
+message("Subset ", task_id, " imputation completed and saved to ", outfile)
+
+# --- Clean up ---
+rm(ds, imp, init_method, pred_matrix)
