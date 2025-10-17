@@ -9,7 +9,7 @@ variables
   name=yob;
   name=neonatal;
   name=infant;
-  name=birth_order_spacing_c5;
+  name=bord_spacing_c5;
   name=underwt_birth;
   name=preterm_birth;
   name=mage_birth_c3;

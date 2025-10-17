@@ -1,4 +1,4 @@
-SRCware BBDesign, Thu Oct 16 14:09:40 2025                                       1
+SRCware BBDesign, Fri Oct 17 15:14:02 2025                                       1
 
 Bayesian Bootstrap Finite Population
 
@@ -10,19 +10,19 @@ title Bayesian Bootstrap Finite Population;
   stratum strata;
   cluster psu;
   weight weight;
-  csamples 10;
+  csamples 50;
   wsamples 5;
   seed 102025;
-SRCware BBDesign, Thu Oct 16 14:09:53 2025                                       1
+SRCware BBDesign, Fri Oct 17 15:15:10 2025                                       1
 
 Bayesian Bootstrap Finite Population
 
 Results:
 
 Variables               18
-Observations         11759
+Observations         11695
 Strata                  63
-Clusters              3930
-Cluster samples         10
+Clusters              3919
+Cluster samples         50
 Weight samples           5
-Syn pop size        117590
+Syn pop size        116950
