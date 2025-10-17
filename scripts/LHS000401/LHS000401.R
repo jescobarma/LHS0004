@@ -1,4 +1,5 @@
-################################################################################
+#==================================================================================
+#
 # Program name: LHS000401.R
 #
 # Description: 
@@ -11,8 +12,6 @@
 #
 # Authors: Alvaro Quijano Angarita & Javier Escobar Martinez
 # 
-# Affiliation: UNC-Chapel Hill
-#
 # Input:
 #   - Raw DHS data file: COKR72FL.SAS7BDAT (Children’s Recode 2015)
 #
@@ -31,7 +30,8 @@
 #          skilled provider attendance, and ANC quality score (missing > 2 → NA).
 #   6. Select relevant derived variables for analysis and save dataset.
 #
-# Output dimensions: 11,759 observations × 17 variables
+# Output dimensions: 11,759 observations (input) × 17 variables
+#                    11,695 observations (output), after filtering births < 2016
 #
 # Required packages:
 #   - haven (for reading DHS SAS files)
@@ -39,17 +39,21 @@
 #
 # Date created: 2025-10-06
 # Last updated: 2025-10-16
-################################################################################
+#
+# ==================================================================================
 
 # Clear the workspace
 rm(list = ls(all = TRUE))
 
 # Load required packages
-library(haven)   # to read DHS data (SAS, Stata, SPSS formats)
-library(dplyr)   # for data manipulation
+library(haven)   
+library(dplyr)   
 
 # Load the DHS Children’s Recode (KR) dataset Colombia (2015)
 kr_2015 <- read_sas("../../data/raw/COKR72FL.SAS7BDAT")
+
+# load source formats
+source("../LHS000490/LHS000490.R")
 
 # ------------------------------------------------------------------------------
 # Derive variables
@@ -70,18 +74,6 @@ LHS000401 <- kr_2015 %>%
     urban = if_else(V025 == 1, 1, 0),
     
     # -------------------------------
-    # Region
-    # -------------------------------
-    region = case_when(
-      V101 == 1 ~ "Atlantica",
-      V101 == 2 ~ "Oriental",
-      V101 == 3 ~ "Central",
-      V101 == 4 ~ "Pacifica",
-      V101 == 5 ~ "Bogota",
-      V101 == 6 ~ "Orinoquia/Amazonia"
-    ),
-    
-    # -------------------------------
     # Child sex (1=female, 0=male)
     # -------------------------------
     child_sex = if_else(B4 == 2, 1, 0),
@@ -100,7 +92,7 @@ LHS000401 <- kr_2015 %>%
     # -------------------------------
     # Birth order and spacing (5 categories)
     # -------------------------------
-    birth_order_spacing_c5 = case_when(
+    bord_spacing_c5 = case_when(
       BORD == 1 ~ 0,
       BORD %in% c(2, 3) & B11 < 36 ~ 1,
       BORD %in% c(2, 3) & B11 >= 36 ~ 2,
@@ -226,11 +218,18 @@ LHS000401 <- kr_2015 %>%
     ), 
     anc_quality_score_c2 = ifelse(anc_quality_score >=8 , 1, ifelse(is.na(anc_quality_score), NA_real_, 0))
   ) %>% 
+  rename(
+    region = V101
+  ) %>%
   # Keep only the requested variables
   select(region, strata, psu, weight, urban, child_sex, yob, neonatal, infant,
-         birth_order_spacing_c5, underwt_birth, preterm_birth,
+         bord_spacing_c5, underwt_birth, preterm_birth,
          mage_birth_c3, meduc_c3, ethnicity_c3, any_substance_use,
-         wealth_index_c3, anc_quality_score_c2)
+         wealth_index_c3, anc_quality_score_c2) %>% 
+         filter(yob < 2016)  # keep only births before 2016 
+
+# apply formats to the derived dataset
+apply_formats(LHS000401, formats_LHS0004)
 
 # Save the derived dataset
 save(LHS000401, file = "../../data/derived/LHS000401.rda")
