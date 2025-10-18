@@ -12,7 +12,7 @@ scripts:
     task: "Analytic file derivation"
     software: "R"
     created: "2025-10-15"
-    status: "ongoing"
+    status: "completed"
 
   - code: "LHS000402"
     task: "Bayesian Finite Population Bootstrap – Synthetic population generation"
@@ -24,10 +24,22 @@ scripts:
     task: "Multiple Imputation using the MICE package"
     software: "R"
     created: "2025-10-17"
-    status: "ongoing"
+    status: "completed"
 
   - code: 'LHS000404'
     task: 'Logistic regression of neonatal mortality across bootstrap × Polya × imputation datasets'
     software: 'R'
     created: '2025-10-17'
-    status: 'ongoing'
+    status: 'completed'
+
+  - code: "LHS000405"
+    task: "Combine beta estimates using Zhou et al. (2016) MI method"
+    description: "Combines beta estimates produced in LHS000404 using the method of
+      Zhou, Elliott, and Raghunathan (2016) to obtain final parameter estimates and
+      confidence intervals under a complex survey multiple-imputation framework.
+      Produces both coefficient and odds ratio estimates with 95% confidence intervals."
+    software: "R"
+    created: "2025-10-17"
+    input: "data/derived/LHS000404_&i.rda (i = 1–500)"
+    output: "outputs/LHS000405.csv"
+    status: "completed"
