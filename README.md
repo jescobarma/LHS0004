@@ -15,10 +15,11 @@ Determinants of neonatal mortality using DHS 2015 data and the Finite Population
 ## Scripts Overview
 | Code | Task | Software | Created | Status |
 |------|------|-----------|----------|---------|
-| LHS000401 | Analytic file derivation | R | 2025-10-15 | ongoing |
+| LHS000401 | Analytic file derivation | R | 2025-10-15 | completed |
 | LHS000402 | Bayesian Finite Population Bootstrap – Synthetic population generation | IVEware | 2025-10-16 | completed |
-| LHS000403 | Multiple Imputation using the MICE package | R | 2025-10-17 | ongoing |
-| LHS000404 | Logistic regression of neonatal mortality across bootstrap × Polya × imputation datasets | R | 2025-10-17 | ongoing |
+| LHS000403 | Multiple Imputation using the MICE package | R | 2025-10-17 | completed |
+| LHS000404 | Logistic regression of neonatal mortality across bootstrap × Polya × imputation datasets | R | 2025-10-17 | completed |
+| LHS000405 | Combine beta estimates using Zhou et al. (2016) MI method | R | 2025-10-17 | completed |
 
 
 ---
