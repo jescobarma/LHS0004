@@ -50,10 +50,10 @@ library(haven)
 library(dplyr)   
 
 # Load the DHS Children’s Recode (KR) dataset Colombia (2015)
-kr_2015 <- read_sas("data/raw/COKR72FL.SAS7BDAT")
+kr_2015 <- read_sas("../../data/raw/COKR72FL.SAS7BDAT")
 
 # load source formats
-source("scripts/LHS000490/LHS000490.R")
+source("../LHS000490/LHS000490.R")
 
 # ------------------------------------------------------------------------------
 # Derive variables
@@ -228,9 +228,9 @@ LHS000401 <- kr_2015 %>%
          filter(yob < 2016)  # keep only births before 2016 
 
 # apply formats to the derived dataset
-apply_formats(LHS000401, formats_LHS0004)
+LHS000401 <- apply_formats(LHS000401, LHS000490)
 
 # Save the derived dataset
-save(LHS000401, file = "data/derived/LHS000401.rda")
+save(LHS000401, file = "../../data/derived/LHS000401.rda")
 
 
