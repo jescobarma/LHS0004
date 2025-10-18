@@ -28,7 +28,7 @@ suppressPackageStartupMessages({
 # load data from step #2 and source formats
 load("data/derived/LHS000402.rda")
 source("scripts/LHS000490/LHS000490.R")
-colnames(ds)
+
 # --- Subset only the relevant IMPL_ for this job ---
 ds <- ds %>% filter(IMPL_ == task_id)
 
@@ -42,7 +42,7 @@ init_method[c("underwt_birth","any_substance_use","anc_quality_score_c2")] <- "l
 
 # --- Define predictor matrix and exclude design variables ---
 pred_matrix <- make.predictorMatrix(ds)
-pred_matrix[, c("OBS_","IMPL_","psu","weight","strata","infant","region")] <- 0
+pred_matrix[, c("OBS_","IMPL_","psu","weight","strata","region")] <- 0
 
 # --- Start imputation ---
 message("Imputing subset ", task_id)

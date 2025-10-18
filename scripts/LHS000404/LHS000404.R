@@ -54,7 +54,8 @@ betas <- imputed_datasets %>%
   imap_dfr(~ {
     # Relevel year of birth only
     data_clean <- .x %>%
-      mutate(yob = relevel(as.factor(yob), ref = "2010"))
+      mutate(yob = relevel(as.factor(yob), ref = "2010"),
+             meduc_c3 = relevel(as.factor(meduc_c3), ref = "No education"))
     
     # Fit the logistic regression model
     model <- glm(

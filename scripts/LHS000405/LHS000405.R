@@ -40,20 +40,19 @@ csamples <- max(betas_all$indexL)
 MI_estimates <- betas_all %>%
   group_by(term) %>%
   summarise(
-    Q_mi = mean(estimate),
+    Q_mi = round(mean(estimate),3),
     V_L  = var(estimate),
-    L    = n(),
     .groups = "drop"
   ) %>%
   mutate(
-    V_mi = (1 + (1 / csamples) ) * V_L,
-    se   = sqrt(V_mi),
+    V_mi = round((1 + (1 / csamples) ) * V_L,3),
+    se   = round(sqrt(V_mi),3),
     t    = qt(0.975, df = csamples - 1),
-    LL   = Q_mi - se * t,
-    UL   = Q_mi + se * t,
-    OR    = exp(Q_mi),
-    OR_LL = exp(LL),
-    OR_UL = exp(UL)
+    LL   = round(Q_mi - se * t,3),
+    UL   = round(Q_mi + se * t,3),
+    OR    = round(exp(Q_mi),3),
+    OR_LL = round(exp(LL),3),
+    OR_UL = round(exp(UL),3)
   ) %>%
   rename(Parm = term, Estimate = Q_mi) %>%
   select(Parm, Estimate, se, LL, UL, OR, OR_LL, OR_UL)
