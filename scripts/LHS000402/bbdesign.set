@@ -4,6 +4,6 @@ title Bayesian Bootstrap Finite Population;
   stratum strata;
   cluster psu;
   weight weight;
-  csamples 50;    
+  csamples 100;    
   wsamples 5;   
   seed 102025; 

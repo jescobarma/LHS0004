@@ -42,7 +42,7 @@ init_method[c("underwt_birth","any_substance_use","anc_quality_score_c2")] <- "l
 
 # --- Define predictor matrix and exclude design variables ---
 pred_matrix <- make.predictorMatrix(ds)
-pred_matrix[, c("OBS_","IMPL_","psu","weight","region","strata")] <- 0
+pred_matrix[, c("OBS_","IMPL_","psu","weight","strata")] <- 0
 
 # --- Start imputation ---
 message("Imputing subset ", task_id)
@@ -58,7 +58,7 @@ imp <- mice(
 )
 
 # --- Save output ---
-outfile <- sprintf("data/derived/LHS000403_%d.rda", task_id)
+outfile <- sprintf("data/derived/LHS000403/LHS000403_%d.rda", task_id)
 save(imp, file = outfile, compress = "xz")
 
 message("Subset ", task_id, " imputation completed and saved to ", outfile)

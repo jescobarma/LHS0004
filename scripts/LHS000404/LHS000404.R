@@ -33,7 +33,7 @@ suppressPackageStartupMessages({
 source("scripts/LHS000490/LHS000490.R")
 
 # Load imputed synthetic datasets
-load(file = sprintf("data/derived/LHS000403_%d.rda", task_id))
+load(file = sprintf("data/derived/LHS000403/LHS000403_%d.rda", task_id))
 
 # Extracts all the imputed dataset
 completed_data <- mice::complete(imp, "long") %>%  
@@ -52,21 +52,29 @@ rm(completed_data,imp)
 # Estimate the model for each Boostraped X Polya's draw X imputed dataset
 betas <- imputed_datasets %>%
   imap_dfr(~ {
-    model <- glm(neonatal ~ factor(yob) + urban + child_sex + 
-                   bord_spacing_c5 + preterm_birth + mage_birth_c3 + meduc_c3 +
-                   wealth_index_c3 + underwt_birth + ethnicity_c3 + any_substance_use + 
-                   anc_quality_score_c2,
-                 data = .x,
-                 family = binomial(link = "logit"))
+    # Relevel year of birth only
+    data_clean <- .x %>%
+      mutate(yob = relevel(as.factor(yob), ref = "2010"))
     
+    # Fit the logistic regression model
+    model <- glm(
+      neonatal ~ yob + urban + child_sex + 
+        bord_spacing_c5 + preterm_birth + mage_birth_c3 + meduc_c3 +
+        wealth_index_c3 + underwt_birth + ethnicity_c3 + any_substance_use + 
+        anc_quality_score_c2,
+      data = data_clean,
+      family = binomial(link = "logit")
+    )
+    
+    # Extract coefficients
     broom::tidy(model) %>%
       mutate(Index = .y)
   }) %>%
-  separate(Index, into = c("indexA", "indexL", "indexB"), sep = "_", convert = TRUE)
+  tidyr::separate(Index, into = c("indexA", "indexL", "indexB"), sep = "_", convert = TRUE)
 
 # Process dataset to contain only relevant variables
 final_betas <- betas %>% as_tibble() %>% 
   select(term, estimate, indexA, indexL, indexB)
 
 # Save beta estimates
-save(final_betas, file = sprintf("data/derived/LHS000404_%d.rda", task_id))
+save(final_betas, file = sprintf("data/derived/LHS000404/LHS000404_%d.rda", task_id))
