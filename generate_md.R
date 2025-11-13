@@ -52,7 +52,7 @@ script_rows <- vapply(scripts, function(s) {
 
 
 # How to Run LHS000401.R section
-run_401_section <- "
+run_401_section <- paste0("
 ---
 
 
@@ -93,12 +93,13 @@ The script outputs:
 ```
 data/derived/LHS000401.rda
 ```
-"
+")
 
 # ---- Combine all sections ----
 md_content <- c(
-  header_section,run_401_section,
+  header_section,
   paste(script_rows, collapse = "\n"),
+  run_401_section,
   
   "\n\n---\n*Automatically generated from project.yaml*"
 )
