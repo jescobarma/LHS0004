@@ -66,8 +66,13 @@ R ≥ 4.3.0 with packages `haven` and `dplyr`.
 **Directory structure expected:**
 ```
 project/
-├── code/
+├── scripts /
 │ ├── LHS000401/LHS000401.R
+│ ├── LHS000402/LHS000402.xml
+│ ├── LHS000403/LHS000403.R
+│ ├── LHS000404/LHS000404.R
+│ ├── LHS000405/LHS000405.R
+│ ├── LHS000406/LHS000406.R
 │ └── LHS000490/LHS000490.R
 ├── data/
 │ ├── raw/COKR72FL.SAS7BDAT
