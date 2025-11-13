@@ -50,10 +50,56 @@ script_rows <- vapply(scripts, function(s) {
   glue("| {s$code} | {s$task} | {s$software} | {s$created} | {s$status} |")
 }, FUN.VALUE = character(1))
 
+
+# How to Run LHS000401.R section
+run_401_section <- "
+---
+
+
+## How to Run LHS000401.R 
+
+
+**Requirements:**
+R ≥ 4.3.0 with packages `haven` and `dplyr`.
+
+
+**Directory structure expected:**
+```
+project/
+├── code/
+│ ├── LHS000401/LHS000401.R
+│ └── LHS000490/LHS000490.R
+├── data/
+│ ├── raw/COKR72FL.SAS7BDAT
+│ └── derived/
+```
+
+
+**To run from RStudio:**
+```r
+setwd(\"code/LHS000401\")
+source(\"LHS000401.R\")
+```
+
+
+**To run from terminal:**
+```
+cd code/LHS000401
+Rscript LHS000401.R
+```
+
+
+The script outputs:
+```
+data/derived/LHS000401.rda
+```
+"
+
 # ---- Combine all sections ----
 md_content <- c(
-  header_section,
+  header_section,run_401_section,
   paste(script_rows, collapse = "\n"),
+  
   "\n\n---\n*Automatically generated from project.yaml*"
 )
 
