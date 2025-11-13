@@ -20,6 +20,8 @@ Determinants of neonatal mortality using DHS 2015 data and the Finite Population
 | LHS000403 | Multiple Imputation using the MICE package | R | 2025-10-17 | completed |
 | LHS000404 | Logistic regression of neonatal mortality across bootstrap × Polya × imputation datasets | R | 2025-10-17 | completed |
 | LHS000405 | Combine beta estimates using Zhou et al. (2016) MI method | R | 2025-10-17 | completed |
+| LHS000406 | Generates a descriptive table for manuscript | R | 2025-10-20 | completed |
+| LHS000490 | Formats for categorical variables | R | 2025-10-20 | completed |
 
 
 ---
