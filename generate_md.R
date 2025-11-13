@@ -75,7 +75,7 @@ project/
 │ ├── LHS000406/LHS000406.R
 │ └── LHS000490/LHS000490.R
 ├── data/
-│ ├── raw/COKR72FL.SAS7BDAT
+│ ├── raw/COKR72FL.SAS7BDAT (downloaded DHS file)
 │ └── derived/
 ```
 
