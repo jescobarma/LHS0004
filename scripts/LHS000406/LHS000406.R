@@ -5,8 +5,6 @@
 #   Description: Generates descriptive survey-weighted tables for neonatal outcomes
 #                using data from LHS000401.
 #
-#   Author: Javier Alberto Escobar Martínez
-#
 #   Version: R 4.5.1
 #
 #  ----------------------------------------------------------------

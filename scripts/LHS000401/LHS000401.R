@@ -9,8 +9,6 @@
 #   SAS routine (LHS000101.sas), adapting them to R using the haven and dplyr packages.
 #
 # Version: R 4.3.3 
-#
-# Authors: Alvaro Quijano Angarita & Javier Escobar Martinez
 # 
 # Input:
 #   - Raw DHS data file: COKR72FL.SAS7BDAT (Children’s Recode 2015)

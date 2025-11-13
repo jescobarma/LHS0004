@@ -2,9 +2,9 @@ project:
   id: LHS0004
   title: "Neonatal Mortality in the Colombian DHS 2015"
   description: "Determinants of neonatal mortality using DHS 2015 data and the Finite Population Bayesian Bootstrap."
-  lead: "Álvaro Quijano"
+  lead: "--"
   collaborators:
-    - "Javier Escobar"
+    - "--"
   status: "ongoing"
 
 scripts:

@@ -4,8 +4,6 @@
 #
 #   Description: Multiple imputation by subset (IMPL_)
 #
-#   Author: Álvaro Quijano
-#
 #   Version: R 4.5.1
 #
 #  ----------------------------------------------------------------

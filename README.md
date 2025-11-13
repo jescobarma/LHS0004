@@ -1,8 +1,8 @@
 # Neonatal Mortality in the Colombian DHS 2015
 
 **Project ID:** LHS0004  
-**Lead:** Álvaro Quijano  
-**Collaborators:** Javier Escobar  
+**Lead:** --  
+**Collaborators:** --  
 **Status:** ongoing
 
 ---
