@@ -4,12 +4,8 @@
 #
 #  Date: 2026-10-23
 #
-#  Description: Combine the delta-adjusted FPBB logistic fits for the three
-#               shifted variables (birth weight, LHS000410; antenatal care
-#               quality and substance use, LHS000411) using Zhou (2014),
-#               adding delta = 0 (MAR) from LHS000405. Reports the largest
-#               relative change of each OR from its MAR value across delta,
-#               and plots each shifted variable's own OR (95% CI) against delta.
+#  Description: Combine delta-adjusted estimates (LHS000410, LHS000411) using
+#               Zhou (2014): OR change from MAR (table) and OR vs delta (figure).
 #
 #   Usage: Rscript LHS000412.R [n subsets per delta, default 500]
 #

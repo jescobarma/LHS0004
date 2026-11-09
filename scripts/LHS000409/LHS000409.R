@@ -4,14 +4,8 @@
 #
 #  Date: 2026-10-22
 #
-#  Description: Appendix table comparing the three ways of handling the
-#               missing data in LHS000408 (mother's education collapsed):
-#               odds ratios (95% CI) from complete-case analysis, FPBB MI and
-#               conventional MI (design ignored in the imputation model), and
-#               the width of the complete-case and conventional MI intervals
-#               relative to FPBB MI on the log-OR scale (each method's 95% CI
-#               width, log(upper) - log(lower), and the complete-case and
-#               conventional MI widths divided by the FPBB MI width).
+#  Description: Appendix table of odds ratios (95% CI) and CI widths from
+#               complete-case analysis, FPBB MI, and conventional MI.
 #
 #   Usage: Rscript scripts/LHS000409/LHS000409.R
 #

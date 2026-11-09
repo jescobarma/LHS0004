@@ -4,13 +4,8 @@
 #
 #  Date: 2026-10-22
 #
-#  Description: Convergence diagnostics of the FPBB MI imputations (5 mice
-#               chains of 50 iterations per synthetic population), for
-#               the supplement. For every synthetic population and imputed
-#               variable, on iterations 11-50: Gelman-Rubin R-hat (coda) and
-#               the standardised drift of the chain means. Drawn as a figure
-#               with trace plots (A), the R-hat distribution (B) and the
-#               drift distribution (C).
+#  Description: Convergence diagnostics of the FPBB MI imputations (supplement):
+#               trace plots, Gelman-Rubin R-hat, and drift of chain means.
 #
 #   Usage: Rscript scripts/LHS000407/LHS000407.R [n FPBB files, default 500]
 #

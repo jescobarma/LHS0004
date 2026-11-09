@@ -2,15 +2,8 @@
 #
 #   Program: LHS000410.R
 #
-#   Description: Delta-adjustment (MNAR) sensitivity analysis of the MAR
-#                assumption for birth weight under FPBB MI: one IMPL_ subset is imputed
-#                exactly as in LHS000403, except that missing underwt_birth is
-#                drawn with delta added to the logit of P(low birth weight).
-#                The 5 completed datasets are then fitted with standard
-#                logistic regression (mother's education collapsed to
-#                "No education/Primary" vs "Secondary or higher", as in
-#                LHS000408), and only the coefficients are combined later
-#                (LHS000412).
+#   Description: Delta-adjustment (MNAR) sensitivity analysis for birth weight
+#                under FPBB MI, for one subset.
 #
 #   Usage: Rscript LHS000410.R <subset id> <delta> [maxit, default 50]
 #

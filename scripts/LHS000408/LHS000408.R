@@ -4,21 +4,8 @@
 #
 #  Date: 2026-10-21
 #
-#  Description: Logistic regression of neonatal mortality with mother's
-#               education collapsed to "No education/Primary" (the reference)
-#               vs "Secondary or higher", compared across three ways of
-#               handling the missing data:
-#                 FPBB MI          - unweighted glm on the LHS000403 imputations,
-#                                    combined as in LHS000405 (Zhou 2014);
-#                 complete-case    - svyglm on the original DHS data;
-#                 conventional MI  - mice on the original DHS data (design
-#                                    ignored in the imputation model), svyglm
-#                                    on each imputation, combined with Rubin's
-#                                    rules (Barnard-Rubin degrees of freedom).
-#               svyglm uses Taylor linearisation for the design-based variances.
-#               Education is collapsed after imputation, so LHS000403 is reused;
-#               the FPBB fits run in parallel on forked cores. This script draws
-#               the three-method forest plot itself.
+#  Description: Logistic regression of neonatal mortality comparing FPBB MI,
+#               complete-case analysis, and conventional MI (forest plot).
 #
 #   Usage: Rscript LHS000408.R [n imputations, default 5] [n FPBB files, default 500]
 #                              [n cores, default 1]

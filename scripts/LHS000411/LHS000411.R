@@ -4,15 +4,8 @@
 #
 #   Date: 2026-10-23
 #
-#   Description: Delta-adjustment (MNAR) sensitivity analysis of the MAR
-#                assumption for antenatal care quality or substance use under
-#                FPBB MI, as LHS000410 does for birth weight: one IMPL_ subset
-#                is imputed exactly as in LHS000403, except that the missing
-#                values of one variable are drawn with delta added to the logit
-#                of P(level 2) (High ANC quality / Yes substance use). The 5
-#                completed datasets are fitted with standard logistic regression
-#                (mother's education collapsed, as in LHS000408), and only the
-#                coefficients are combined later (LHS000412).
+#   Description: Delta-adjustment (MNAR) sensitivity analysis for antenatal care
+#                quality or substance use under FPBB MI, for one subset.
 #
 #   Usage: Rscript LHS000411.R <subset id> <variable> <delta> [maxit, default 50]
 #          variable: anc_quality_score_c2 or any_substance_use
