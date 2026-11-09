@@ -9,7 +9,7 @@
 #               vs "Secondary or higher", compared across three ways of
 #               handling the missing data:
 #                 FPBB MI          - unweighted glm on the LHS000403 imputations,
-#                                    combined as in LHS000405 (Zhou et al 2016);
+#                                    combined as in LHS000405 (Zhou 2014);
 #                 complete-case    - svyglm on the original DHS data;
 #                 conventional MI  - mice on the original DHS data (design
 #                                    ignored in the imputation model), svyglm
@@ -99,8 +99,9 @@ fpbb_betas <- bind_rows(par_map(seq_len(n_files), function(i) {
     ungroup()
 }))
 
-# Combined as in LHS000405. Reference: Zhou, H. et al (2014).
-# Synthetic multiple-imputation procedure for multistage complex samples. JOS, 32(1), 231-256.
+# Combined as in LHS000405.
+# Reference: Zhou, H. (2014). Accounting for Complex Sample Designs in Multiple Imputation
+# Using the Finite Population Bayesian Bootstrap (Doctoral dissertation).
 
 n_L <- n_distinct(fpbb_betas$indexL)
 fpbb_per_l <- fpbb_betas %>%

@@ -6,7 +6,7 @@
 #
 #  Description: Combine the delta-adjusted FPBB logistic fits for the three
 #               shifted variables (birth weight, LHS000410; antenatal care
-#               quality and substance use, LHS000411) using Zhou et al (2016),
+#               quality and substance use, LHS000411) using Zhou (2014),
 #               adding delta = 0 (MAR) from LHS000405. Reports the largest
 #               relative change of each OR from its MAR value across delta,
 #               and plots each shifted variable's own OR (95% CI) against delta.
@@ -61,8 +61,8 @@ betas_all <- expand_grid(variable = variables, delta = deltas) %>%
     })
   })
 
-# Reference: Zhou, H., Elliott, M. R., & Raghunathan, T. E. (2016). Synthetic multiple-imputation
-# procedure for multistage complex samples. Journal of Official Statistics, 32(1), 231-256.
+# Reference: Zhou, H. (2014). Accounting for Complex Sample Designs in Multiple Imputation
+# Using the Finite Population Bayesian Bootstrap (Doctoral dissertation).
 per_l <- betas_all %>%
   group_by(variable, delta, term, indexL) %>%
   summarise(Q_l = mean(estimate), n_fits = n(), .groups = "drop")

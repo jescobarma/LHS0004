@@ -5,7 +5,7 @@
 #  Date: 2026-10-19
 #
 #  Description: Table 2. Combine beta estimates from LHS000404 (standard
-#               logistic and Firth logistic) using Zhou et al (2014) method
+#               logistic and Firth logistic) using Zhou (2014) method
 #               and compare them side by side as a formatted table of odds
 #               ratios (95% CI) and betas (SE).
 #
@@ -37,7 +37,8 @@ load_betas <- function(object_name) {
 # Complete-data degrees of freedom: n_PSU - n_strata from the 2015 Colombia DHS design
 df_com_design <- 3919L - 63L
 
-# Reference: Zhou, H., Elliott, M. R., & Raghunathan, T. E. (2014). Synthetic multiple-imputation
+# Reference: Zhou, H. (2014). Accounting for Complex Sample Designs in Multiple Imputation
+# Using the Finite Population Bayesian Bootstrap (Doctoral dissertation).
 combine_betas <- function(betas_all, df_com = df_com_design) {
   # Number of Polya (L) draws, which sets the between-draw variance inflation.
   L <- dplyr::n_distinct(betas_all$indexL)
@@ -62,7 +63,7 @@ combine_betas <- function(betas_all, df_com = df_com_design) {
 betas_ml    <- load_betas("betas_logistic")
 betas_firth <- load_betas("betas_firth")
 
-# Combine each method's betas via Zhou et al (2014) and save the pooled estimates.
+# Combine each method's betas via Zhou (2014) and save the pooled estimates.
 logistic_fpbb <- combine_betas(betas_ml)
 firth_fpbb    <- combine_betas(betas_firth)
 save(logistic_fpbb, firth_fpbb, file = "data/derived/LHS000405.rda")
