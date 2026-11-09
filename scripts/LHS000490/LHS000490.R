@@ -1,5 +1,5 @@
 # =======================================================
-# LHS000490
+# formats_LHS000490.R
 # =======================================================
 # Labeling functions ("formats") for key categorical variables in the DHS project:
 #   LHS0004 – Determinants of Neonatal Mortality in Colombia
@@ -96,7 +96,7 @@ fmt_anc_quality_score_c2 <- function(x, ref = "Low/Moderate") {
 
 # Format dictionary
 # Maps variable names to their corresponding format functions for use with apply_formats().
-LHS000490 <- list(
+formats_LHS0004 <- list(
   urban = fmt_urban,
   region = fmt_region,
   child_sex = fmt_child_sex,
@@ -123,4 +123,3 @@ apply_formats <- function(data, format_list) {
   }
   data
 }
-

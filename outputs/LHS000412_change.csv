@@ -1,0 +1,67 @@
+"variable","term","max_rel_change"
+"anc_quality_score_c2","anc_quality_score_c2High",0.199050130678478
+"anc_quality_score_c2","bord_spacing_c52–3 (<36 months apart)",0.0232685573275554
+"anc_quality_score_c2","bord_spacing_c5>3 (<36 months apart)",0.0199851888059108
+"anc_quality_score_c2","yob2014",0.0190829269866377
+"anc_quality_score_c2","yob2013",0.0182418935332136
+"anc_quality_score_c2","yob2015",0.0161374200533562
+"anc_quality_score_c2","yob2012",0.01555975124373
+"anc_quality_score_c2","bord_spacing_c5>3 (≥36 months apart)",0.0153313078811026
+"anc_quality_score_c2","preterm_birthYes",0.0142374466242879
+"anc_quality_score_c2","wealth_index_c3Poor",0.0142105931923779
+"anc_quality_score_c2","mage_birth_c3≥35 years",0.0138802180709268
+"anc_quality_score_c2","urbanUrban",0.0114553367309016
+"anc_quality_score_c2","underwt_birthYes",0.0112429044535352
+"anc_quality_score_c2","ethnicity_c3Afro-descendant",0.0105301134536753
+"anc_quality_score_c2","ethnicity_c3Indigenous",0.0104179538044424
+"anc_quality_score_c2","mage_birth_c3≤19 years",0.00750152578306396
+"anc_quality_score_c2","meduc_c3Secondary or higher",0.00685526229082778
+"anc_quality_score_c2","wealth_index_c3Middle",0.00650956675526859
+"anc_quality_score_c2","child_sexFemale",0.00561724107350003
+"anc_quality_score_c2","yob2011",0.00411931842989754
+"anc_quality_score_c2","any_substance_useYes",0.003640595373397
+"anc_quality_score_c2","bord_spacing_c52–3 (≥36 months apart)",0.00212539667309275
+"any_substance_use","any_substance_useYes",0.320074570814895
+"any_substance_use","wealth_index_c3Poor",0.0486902694420623
+"any_substance_use","yob2014",0.0434261712828798
+"any_substance_use","yob2013",0.0340462239216597
+"any_substance_use","ethnicity_c3Afro-descendant",0.0297692806782901
+"any_substance_use","yob2015",0.0296623448948274
+"any_substance_use","urbanUrban",0.0281201493387401
+"any_substance_use","yob2012",0.0253035572269336
+"any_substance_use","yob2011",0.0245824960899284
+"any_substance_use","mage_birth_c3≥35 years",0.0212462445869028
+"any_substance_use","bord_spacing_c5>3 (<36 months apart)",0.019936290218534
+"any_substance_use","bord_spacing_c5>3 (≥36 months apart)",0.015492233881214
+"any_substance_use","underwt_birthYes",0.0148785616331014
+"any_substance_use","wealth_index_c3Middle",0.0144532311020373
+"any_substance_use","anc_quality_score_c2High",0.0107358029149287
+"any_substance_use","meduc_c3Secondary or higher",0.00699520118440722
+"any_substance_use","ethnicity_c3Indigenous",0.00676829597709394
+"any_substance_use","mage_birth_c3≤19 years",0.00612057350727557
+"any_substance_use","child_sexFemale",0.00568035329146555
+"any_substance_use","bord_spacing_c52–3 (<36 months apart)",0.00530256834159948
+"any_substance_use","preterm_birthYes",0.00512917026727733
+"any_substance_use","bord_spacing_c52–3 (≥36 months apart)",0.00337149217499166
+"underwt_birth","underwt_birthYes",0.33831181821757
+"underwt_birth","preterm_birthYes",0.304057923542943
+"underwt_birth","meduc_c3Secondary or higher",0.0839188526044572
+"underwt_birth","ethnicity_c3Indigenous",0.0634425648858914
+"underwt_birth","yob2014",0.0628826863177027
+"underwt_birth","yob2015",0.050877747703838
+"underwt_birth","bord_spacing_c5>3 (<36 months apart)",0.0504213894984796
+"underwt_birth","ethnicity_c3Afro-descendant",0.0436852889427121
+"underwt_birth","mage_birth_c3≤19 years",0.038109025870087
+"underwt_birth","yob2011",0.0347016779407683
+"underwt_birth","yob2013",0.0300515591449633
+"underwt_birth","any_substance_useYes",0.0279822851540648
+"underwt_birth","anc_quality_score_c2High",0.0243922859480236
+"underwt_birth","bord_spacing_c52–3 (<36 months apart)",0.0235975131661248
+"underwt_birth","wealth_index_c3Poor",0.0230054453467294
+"underwt_birth","urbanUrban",0.0204945225712638
+"underwt_birth","yob2012",0.0191413466451897
+"underwt_birth","bord_spacing_c5>3 (≥36 months apart)",0.0138679563706978
+"underwt_birth","mage_birth_c3≥35 years",0.013689069333249
+"underwt_birth","wealth_index_c3Middle",0.0117173926971438
+"underwt_birth","child_sexFemale",0.0116834292706143
+"underwt_birth","bord_spacing_c52–3 (≥36 months apart)",0.0107059296184416

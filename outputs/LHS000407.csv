@@ -1,0 +1,5 @@
+"Variable","pct_missing","Method","n_populations","rhat_median","rhat_max","n_rhat_above_1.1","rhat_classic_median","rhat_classic_max","n_rhat_classic_above_1.1","abs_std_drift_max","n_populations_logged_events"
+"Low birth weight (<2,500 g)",23,"Logistic regression",500,1.014,1.131,8,1.012,1.128,4,0.00053,0
+"Birth order and spacing",0.2,"Multinomial logistic regression",500,1.013,1.187,5,1.01,1.115,1,0.0044,0
+"Antenatal care quality",27.4,"Logistic regression",500,1.015,1.121,4,1.013,1.123,5,0.00034,0
+"Substance use during pregnancy",15.2,"Logistic regression",500,1.016,1.114,2,1.016,1.188,3,0.00044,0

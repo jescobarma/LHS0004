@@ -4,6 +4,8 @@
 #
 #   Description: Multiple imputation by subset (IMPL_)
 #
+#   Author: 
+#
 #   Version: R 4.5.1
 #
 #  ----------------------------------------------------------------
@@ -23,12 +25,9 @@ suppressPackageStartupMessages({
   library(dplyr)
 })
 
-# load data from step #2 and source formats
-load("data/derived/LHS000402.rda")
+# Load only this subset (pre-split by LHS000402_split.R) and source formats
+load(sprintf("data/derived/LHS000402_subsets/LHS000402_%d.rda", task_id))
 source("scripts/LHS000490/LHS000490.R")
-
-# --- Subset only the relevant IMPL_ for this job ---
-ds <- ds %>% filter(IMPL_ == task_id)
 
 # Apply formats to the dataset
 ds <- apply_formats(ds, formats_LHS0004)
@@ -50,7 +49,7 @@ imp <- mice(
   m = 5,                    # number of imputations
   method = init_method,
   predictorMatrix = pred_matrix,
-  maxit = 5,                # iterations
+  maxit = 50,               # iterations (convergence assessed on these chains in LHS000407)
   printFlag = FALSE,
   seed = 123
 )

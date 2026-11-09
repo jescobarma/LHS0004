@@ -1,142 +1,79 @@
-#============================================================================
+#=============================================================================
 #
-#   Program: LHS000406.R
+#  Script name: LHS000406.R
 #
-#   Description: Generates descriptive survey-weighted tables for neonatal outcomes
-#                using data from LHS000401.
+#  Date: 2025-10-17
 #
-#   Version: R 4.5.1
+#  Description: Descriptive Table 1 — unweighted frequencies with
+#               survey-weighted row percentages by neonatal death; missing
+#               values shown as "Missing". Mother's education collapsed to
+#               "No education/Primary" vs "Secondary or higher".
 #
-#  ----------------------------------------------------------------
+#  History:
+#    2026-10-25  Collapsed maternal education to two categories
+#               ("No education/Primary" vs "Secondary or higher")
 #
-#   Input:  data/derived/LHS000401.rda
-# 
-#   Output: Descriptive table (printed to console or exported manually)
+#   Usage: Rscript scripts/LHS000406/LHS000406.R
 #
-#============================================================================
+#   Input: data/derived/LHS000401.rda
+#
+#   Output: outputs/LHS000406.csv
+#
+#=============================================================================
 
-# --- Load required packages ---
 suppressPackageStartupMessages({
-  library(survey)
   library(dplyr)
-  library(knitr)
-  library(kableExtra)
+  library(purrr)
+  library(survey)
 })
 
-# --- Load derived dataset ---
-load("../../data/derived/LHS000401.rda")
+# Load variable formats shared across the pipeline.
+source("scripts/LHS000490/LHS000490.R")
 
-# --- Define survey design ---
-survey_design <- svydesign(
-  data = LHS000401,
-  strata = ~strata,
-  weights = ~weight,
-  id = ~psu,
-  nest = TRUE
-)
+# Load the analysis dataset, apply labels, and collapse education to two categories.
+load("data/derived/LHS000401.rda")
+LHS000401 <- apply_formats(LHS000401, formats_LHS0004) %>%
+  mutate(yob = factor(yob),
+         meduc_c2 = factor(if_else(meduc_c3 == "Secondary or higher",
+                                   "Secondary or higher", "No education/Primary"),
+                           levels = c("No education/Primary", "Secondary or higher")))
 
-#============================================================================
-#   Function: generate_neonatal_table
-#   Purpose:  Create a frequency and percentage table (No/Yes) for each variable
-#============================================================================
-generate_neonatal_table <- function(variable, design) {
-  
-  # Prepare data subset
-  df <- LHS000401 %>%
-    select(all_of(c(variable, "neonatal"))) %>%
-    mutate(
-      !!sym(variable) := ifelse(is.na(.data[[variable]]), "Missing", as.character(.data[[variable]]))
-    )
-  
-  # Ensure "Missing" appears last
-  levels_var <- unique(df[[variable]])
-  if ("Missing" %in% levels_var) 
-    levels_var <- c(setdiff(levels_var, "Missing"), "Missing")
-  
-  df[[variable]] <- factor(df[[variable]], levels = levels_var)
-  
-  # Update design with variable
-  design_var <- update(design)
-  design_var$variables[[variable]] <- df[[variable]]
-  
-  # Create weighted tables
-  weighted_tab <- svytable(as.formula(paste0("~", variable, "+neonatal")), design_var)
-  weighted_prop <- prop.table(weighted_tab, margin = 1)
-  
-  # Create unweighted counts for display
-  count_tab <- table(df[[variable]], df$neonatal, useNA = "ifany")
-  
-  # Add missing columns if needed
-  for (cat in c("No", "Yes")) {
-    if (!(cat %in% colnames(count_tab))) {
-      count_tab <- cbind(count_tab, setNames(rep(0, nrow(count_tab)), cat))
-    }
-  }
-  
-  # Build output table
-  output_df <- data.frame(
-    Category = rownames(count_tab),
-    Neonatal_No  = paste0(count_tab[, "No"], " (", sprintf("%.2f", 100 * weighted_prop[, "No"]), "%)"),
-    Neonatal_Yes = paste0(count_tab[, "Yes"], " (", sprintf("%.2f", 100 * weighted_prop[, "Yes"]), "%)")
-  )
-  
-  # Add title row
-  title_row <- data.frame(Category = paste0("**", variable, "**"),
-                          Neonatal_No = "", Neonatal_Yes = "")
-  
-  output_df <- rbind(title_row, output_df)
-  return(output_df)
+# Variables to tabulate; meduc_c2 replaces the 3-category meduc_c3.
+variables <- c("yob", "child_sex", "urban", "bord_spacing_c5",
+               "underwt_birth", "preterm_birth", "mage_birth_c3", "meduc_c2",
+               "ethnicity_c3", "any_substance_use", "wealth_index_c3", "anc_quality_score_c2")
+
+# NAs become an explicit "Missing" level so they keep their rows in the design.
+LHS000401 <- LHS000401 %>%
+  mutate(across(all_of(variables), ~ forcats::fct_na_value_to_level(.x, level = "Missing")))
+
+# Build the complex survey design using PSU, strata, and sampling weights.
+design <- svydesign(ids = ~psu, strata = ~strata, weights = ~weight,
+                    data = LHS000401, nest = TRUE)
+
+# For one variable: unweighted counts and survey-weighted row percentages by neonatal death.
+describe <- function(variable) {
+  counts <- table(LHS000401[[variable]], LHS000401$neonatal)
+  counts <- counts[rowSums(counts) > 0, , drop = FALSE]
+  row_pct <- 100 * prop.table(svytable(as.formula(paste0("~", variable, " + neonatal")), design),
+                              margin = 1)[rownames(counts), , drop = FALSE]
+  bind_rows(
+    tibble(Characteristic = variable, Neonatal_No = "", Neonatal_Yes = ""),
+    tibble(Characteristic = paste0("  ", rownames(counts)),
+           Neonatal_No  = sprintf("%d (%.2f%%)", counts[, "No"],  row_pct[, "No"]),
+           Neonatal_Yes = sprintf("%d (%.2f%%)", counts[, "Yes"], row_pct[, "Yes"])))
 }
 
-#============================================================================
-#   Variables to be analyzed
-#============================================================================
-variables <- c(
-  "child_sex", "region", "urban", "bord_spacing_c5",
-  "underwt_birth", "preterm_birth", "mage_birth_c3", "meduc_c3",
-  "ethnicity_c3", "any_substance_use", "wealth_index_c3", "anc_quality_score_c2"
-)
+# Compute overall totals to append as the last row.
+total_counts <- table(LHS000401$neonatal)
+total_pct <- 100 * prop.table(svytable(~neonatal, design))
 
-#============================================================================
-#   Generate and combine all tables
-#============================================================================
-neonatal_tables <- lapply(variables, function(v) {
-  tryCatch(
-    generate_neonatal_table(v, survey_design),
-    error = function(e) {
-      message("Error with variable: ", v, " -> ", e$message)
-      return(NULL)
-    }
-  )
-})
+# Assemble the full table across all variables
+table_final <- bind_rows(
+  map(variables, describe),
+  tibble(Characteristic = "Total",
+         Neonatal_No  = sprintf("%d (%.2f%%)", total_counts["No"],  total_pct["No"]),
+         Neonatal_Yes = sprintf("%d (%.2f%%)", total_counts["Yes"], total_pct["Yes"])))
 
-neonatal_final <- do.call(rbind, neonatal_tables)
-
-#============================================================================
-#   Add global totals
-#============================================================================
-neonatal_total <- svytable(~neonatal, survey_design)
-total_row <- data.frame(
-  Category = "**Total**",
-  Neonatal_No  = paste0(sprintf("%.2f", 100 * prop.table(neonatal_total)["No"]), "%"),
-  Neonatal_Yes = paste0(sprintf("%.2f", 100 * prop.table(neonatal_total)["Yes"]), "%")
-)
-
-neonatal_final <- rbind(neonatal_final, total_row)
-
-#============================================================================
-#   Display final table
-#============================================================================
-neonatal_final %>%
-  kbl(
-    align = "lcc",
-    booktabs = TRUE,
-    escape = FALSE,
-    caption = "Descriptive Table of Neonatal Outcomes (Row Percentages)"
-  ) %>%
-  kable_styling(full_width = FALSE, position = "center")
-
-#============================================================================
-#   End of Program
-#============================================================================
-
+# Write the final table to a CSV file
+write.csv(table_final, file = "outputs/LHS000406.csv", row.names = FALSE)
