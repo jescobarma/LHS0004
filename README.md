@@ -42,7 +42,7 @@ R ≥ 4.3.0 with packages `haven` and `dplyr`.
 **Directory structure expected:**
 ```
 project/
-├── scripts /
+├── scripts/
 │ ├── LHS000401/LHS000401.R
 │ ├── LHS000402/LHS000402.xml
 │ ├── LHS000403/LHS000403.R, LHS000403.sh
@@ -66,14 +66,14 @@ project/
 
 **To run from RStudio:**
 ```r
-setwd("code/LHS000401")
+setwd("scripts/LHS000401")
 source("LHS000401.R")
 ```
 
 
 **To run from terminal:**
 ```
-cd code/LHS000401
+cd scripts/LHS000401
 Rscript LHS000401.R
 ```
 
